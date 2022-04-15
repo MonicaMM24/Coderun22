@@ -4,11 +4,12 @@ const { initHeadlineCache } = require('./cache/headlineCache');
 const headlineCachingMiddleware = require('./middlewares/headlineCachingMiddleware');
 const errorHandlingMiddleware = require('./middlewares/errorHandlingMiddleware');
 const notFoundMiddleware = require('./middlewares/notFoundMiddleware');
+const myMiddleWare = require('./middlewares/myMiddleware');
 
 const app = express();
 
 app.use(cors());
-
+app.use(myMiddleware);
 app.get('/headlines', headlineCachingMiddleware, (req, res, next) => {
   const fetchData = require('./dataSource/fetchHeadlines');
   fetchData(req.query).then(result => {
